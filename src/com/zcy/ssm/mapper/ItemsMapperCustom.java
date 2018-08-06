@@ -7,7 +7,7 @@ import com.zcy.ssm.po.ItemsQueryVo;
 
 public interface ItemsMapperCustom {
 
-	//查询商品列表
+	//鏌ヨ鍟嗗搧鍒楄〃
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) 
 			throws Exception;
 	

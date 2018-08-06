@@ -1,14 +1,25 @@
 package com.zcy.ssm.po;
+
+import java.util.List;
+
 /*
- * 商品包装对象
+ * 鍟嗗搧鍖呰瀵硅薄
  */
 public class ItemsQueryVo {
 
-	//商品信息
+	//鍟嗗搧淇℃伅
 	private Items items;
-	//为了系统可扩展性，对原始生成的po进行扩展
+	//涓轰簡绯荤粺鍙墿灞曟�э紝瀵瑰師濮嬬敓鎴愮殑po杩涜鎵╁睍
 	private ItemsCustom itemsCustom;
+	//鎵归噺鍟嗗搧淇℃伅
+	private List<ItemsCustom> itemsList;
 	
+	public List<ItemsCustom> getItemsList() {
+		return itemsList;
+	}
+	public void setItemsList(List<ItemsCustom> itemsList) {
+		this.itemsList = itemsList;
+	}
 	public Items getItems() {
 		return items;
 	}

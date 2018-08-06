@@ -12,7 +12,7 @@ import com.zcy.ssm.po.ItemsCustom;
 import com.zcy.ssm.po.ItemsQueryVo;
 import com.zcy.ssm.service.ItemsService;
 /*
- * ÉÌÆ·¹ÜÀí
+ * å•†å“ç®¡ç†
  */
 public class ItemsServiceImpl implements ItemsService {
 
@@ -25,17 +25,17 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo)
 			throws Exception {
-		// Í¨¹ıItemsMapperCustom²éÑ¯Êı¾İ¿â
+		// é€šè¿‡ItemsMapperCustomæŸ¥è¯¢æ•°æ®åº“
 		return itemsMapperCustom.findItemsList(itemsQueryVo);
 	}
 
 	@Override
 	public ItemsCustom findItemsById(int id) throws Exception {
 		Items items = itemsMapper.selectByPrimaryKey(id);
-		//ÖĞ¼ä¶ÔÉÌÆ·ĞÅÏ¢½øĞĞÒµÎñ´¦Àí
-		//·µ»ØItemsCustom
+		//ä¸­é—´å¯¹å•†å“ä¿¡æ¯è¿›è¡Œä¸šåŠ¡å¤„ç†
+		//è¿”å›ItemsCustom
 		ItemsCustom itemsCustom = new ItemsCustom();
-		//½«itemsµÄÄÚÈİ¿½±´µ½itemsCustom
+		//å°†itemsçš„å†…å®¹æ‹·è´åˆ°itemsCustom
 		BeanUtils.copyProperties(items, itemsCustom);
 		return itemsCustom;
 	}
@@ -43,13 +43,19 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public void updateItems(Integer id, ItemsCustom itemsCustom) 
 			throws Exception {
-		//Ìí¼ÓÒµÎñĞ£Ñé£¬Í¨³£ÔÚservice½Ó¿Ú¶Ô¹Ø¼ü²ÎÊı½øĞĞĞ£Ñé
-		//Ğ£ÑéidÊÇ·ñÎª¿Õ£¬Èç¹ûÎª¿ÕÅ×³öÒì³£
-		//¸üĞÂÉÌÆ·ĞÅÏ¢,Ê¹ÓÃupdateByPrimaryKeyWithBLOBs
-		//¸ù¾İid¸üĞÂitems±íÖĞËùÓĞ×Ö¶Î£¬°üÀ¨´óÎÄ±¾ÀàĞÍ×Ö¶Î
-		//×¢ÒâupdateByPrimaryKeyWithBLOBsÒªÇó±ØĞë´«Èëid
+		//æ·»åŠ ä¸šåŠ¡æ ¡éªŒï¼Œé€šå¸¸åœ¨serviceæ¥å£å¯¹å…³é”®å‚æ•°è¿›è¡Œæ ¡éªŒ
+		//æ ¡éªŒidæ˜¯å¦ä¸ºç©ºï¼Œå¦‚æœä¸ºç©ºæŠ›å‡ºå¼‚å¸¸
+		//æ›´æ–°å•†å“ä¿¡æ¯,ä½¿ç”¨updateByPrimaryKeyWithBLOBs
+		//æ ¹æ®idæ›´æ–°itemsè¡¨ä¸­æ‰€æœ‰å­—æ®µï¼ŒåŒ…æ‹¬å¤§æ–‡æœ¬ç±»å‹å­—æ®µ
+		//æ³¨æ„updateByPrimaryKeyWithBLOBsè¦æ±‚å¿…é¡»ä¼ å…¥id
 		itemsCustom.setId(id);
 		itemsMapper.updateByPrimaryKeyWithBLOBs(itemsCustom);
+	}
+
+	@Override
+	public void deleteItems(Integer[] itemsId) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

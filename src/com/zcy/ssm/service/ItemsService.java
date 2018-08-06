@@ -6,21 +6,23 @@ import com.zcy.ssm.po.ItemsCustom;
 import com.zcy.ssm.po.ItemsQueryVo;
 
 /*
- * ÉÌÆ·¹ÜÀíservice
+ * å•†å“ç®¡ç†service
  */
 public interface ItemsService {
 
-	//ÉÌÆ·²éÑ¯ÁĞ±í
+	//å•†å“æŸ¥è¯¢åˆ—è¡¨
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo)
 			throws Exception;
-	//¸ù¾İid²éÑ¯ÉÌÆ·ĞÅÏ¢
+	//æ ¹æ®idæŸ¥è¯¢å•†å“ä¿¡æ¯
 	public ItemsCustom findItemsById(int id) throws Exception;
-	//ĞŞ¸ÄÉÌÆ·ĞÅÏ¢
+	//ä¿®æ”¹å•†å“ä¿¡æ¯
 	/**
-	 * @param id ĞŞ¸ÄÉÌÆ·µÄid
-	 * @param itemsCustom ĞŞ¸ÄµÄÉÌÆ·ĞÅÏ¢
+	 * @param id ä¿®æ”¹å•†å“çš„id
+	 * @param itemsCustom ä¿®æ”¹çš„å•†å“ä¿¡æ¯
 	 * @throws Exception
 	 */
 	public void updateItems(Integer id, ItemsCustom itemsCustom) 
+			throws Exception;
+	public void deleteItems(Integer[] itemsId)
 			throws Exception;
 }

@@ -2,15 +2,24 @@ package com.zcy.ssm.po;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Items {
     private Integer id;
 
+    //添加校验规则
+    //校验名称在1到30个字符中间
+    //message是提示校验出错显示的信息,在配置文件中配置
+    @Size(min=1, max=30, message="{items.name.length.error}")
     private String name;
 
     private Float price;
 
     private String pic;
 
+    //非空校验
+    @NotNull(message="{items.createtime.isNull}")
     private Date createtime;
 
     private String detail;

@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zcy.ssm.controller.validation.ValidGroup1;
 import com.zcy.ssm.po.ItemsCustom;
 import com.zcy.ssm.po.ItemsQueryVo;
 import com.zcy.ssm.service.ItemsService;
@@ -87,9 +89,13 @@ public class ItemsController {
 	//在需要校验的pojo前面添加@Validated，
 	//在需要校验的pojo后边添加BindingResult bindingResult接收校验出错信息
 	//注意：@Validated和BindingResult bindingResult是配对出现，顺序先后固定
+	//value={ValidGroup1.class}指定使用ValidGroup1分组的校验
+	//@ModelAttribute指定pojo回显到页面在request中的key
 	@RequestMapping("/editItemsSubmit")
 	public String editItemsSubmit(Model model, HttpServletRequest request, Integer id, 
-			@Validated ItemsCustom itemsCustom, BindingResult bindingResult) throws Exception
+			@ModelAttribute("itemsCustom")
+			@Validated(value={ValidGroup1.class}) ItemsCustom itemsCustom, 
+			BindingResult bindingResult) throws Exception
 	{
 		//获取校验错误信息
 		if(bindingResult.hasErrors())

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zcy.ssm.controller.validation.ValidGroup1;
+import com.zcy.ssm.exception.CustomException;
 import com.zcy.ssm.po.ItemsCustom;
 import com.zcy.ssm.po.ItemsQueryVo;
 import com.zcy.ssm.service.ItemsService;
@@ -80,6 +81,11 @@ public class ItemsController {
 	{
 		//调用service查询商品信息
 		ItemsCustom itemsCustom = itemsService.findItemsById(items_id);
+		//判断商品是否为空，根据id没有查询到商品，抛出异常，提示用户商品信息不存在
+		if(itemsCustom == null)
+		{
+			throw new CustomException("修改的商品信息不存在！");
+		}
 		//相当于modelAndView.addObject方法
 		model.addAttribute("itemsCustom", itemsCustom);
 		return "items/editItems";

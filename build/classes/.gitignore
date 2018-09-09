@@ -2,5 +2,6 @@
 /com/
 /db.properties
 /log4j.properties
+/mybatis.sql
 /mybatis/
 /spring/

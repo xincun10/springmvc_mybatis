@@ -76,5 +76,10 @@
 		<!-- 对资源文件内容缓存时间，单位秒 -->
 		<property name="cacheSeconds" value="120"></property>
 	</bean>
+	
+	<!-- 全局异常处理器,
+	只要实现HandlerExceptionResolver接口就是全局异常处理器。
+	 -->
+	<bean class="com.zcy.ssm.exception.CustomExceptionResolver" />
 
 </beans>

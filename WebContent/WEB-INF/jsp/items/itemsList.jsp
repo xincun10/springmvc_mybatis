@@ -25,6 +25,10 @@ function queryItems()
 </script>
 </head>
 <body> 
+当前用户：${name }
+<c:if test="${name != null }">
+	<a href="${pageContext.request.contextPath }/logout.action">退出</a>
+</c:if>
 <form name="itemsForm" action="" method="post">
 查询条件：
 <table width="100%" border=1>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zcy.ssm.exception.CustomException;
 import com.zcy.ssm.mapper.ItemsMapper;
 import com.zcy.ssm.mapper.ItemsMapperCustom;
 import com.zcy.ssm.po.Items;
@@ -32,6 +33,10 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public ItemsCustom findItemsById(int id) throws Exception {
 		Items items = itemsMapper.selectByPrimaryKey(id);
+		if(items == null)
+		{
+			throw new CustomException("修改的商品信息不存在！");
+		}
 		//中间对商品信息进行业务处理
 		//返回ItemsCustom
 		ItemsCustom itemsCustom = null;

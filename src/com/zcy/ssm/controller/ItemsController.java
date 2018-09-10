@@ -1,6 +1,8 @@
 package com.zcy.ssm.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zcy.ssm.controller.validation.ValidGroup1;
@@ -82,10 +85,10 @@ public class ItemsController {
 		//调用service查询商品信息
 		ItemsCustom itemsCustom = itemsService.findItemsById(items_id);
 		//判断商品是否为空，根据id没有查询到商品，抛出异常，提示用户商品信息不存在
-		if(itemsCustom == null)
-		{
-			throw new CustomException("修改的商品信息不存在！");
-		}
+//		if(itemsCustom == null)
+//		{
+//			throw new CustomException("修改的商品信息不存在！");
+//		}
 		//相当于modelAndView.addObject方法
 		model.addAttribute("itemsCustom", itemsCustom);
 		return "items/editItems";
@@ -98,10 +101,13 @@ public class ItemsController {
 	//value={ValidGroup1.class}指定使用ValidGroup1分组的校验
 	//@ModelAttribute指定pojo回显到页面在request中的key
 	@RequestMapping("/editItemsSubmit")
-	public String editItemsSubmit(Model model, HttpServletRequest request, Integer id, 
+	public String editItemsSubmit(
+			Model model, HttpServletRequest request, Integer id, 
 			@ModelAttribute("itemsCustom")
 			@Validated(value={ValidGroup1.class}) ItemsCustom itemsCustom, 
-			BindingResult bindingResult) throws Exception
+			BindingResult bindingResult,
+			MultipartFile items_pic//接收商品图片
+			) throws Exception
 	{
 		//获取校验错误信息
 		if(bindingResult.hasErrors())
@@ -117,6 +123,24 @@ public class ItemsController {
 			model.addAttribute("allErrors", allErrors);
 			//出错重新到商品修改页面
 			return "items/editItems";
+		}
+		//获取图片原始名称
+		String originalFilename = items_pic.getOriginalFilename();
+		//上传图片
+		if(items_pic!=null && originalFilename!=null && originalFilename.length()>0)
+		{
+			//存储图片的物理路径
+			String pic_path = "I:\\pictures\\老田\\";
+			
+			//新的图片名称
+			String newFilename = UUID.randomUUID() + 
+					originalFilename.substring(originalFilename.lastIndexOf('.'));
+			//新图片
+			File newPic = new File(pic_path+newFilename);
+			//将内存中的数据写入磁盘
+			items_pic.transferTo(newPic);
+			//将新图片名称写到itemsCustom中
+			itemsCustom.setPic(newFilename);
 		}
 		//调用service更新商品信息，页面需要将商品信息传到此方法
 		itemsService.updateItems(id, itemsCustom);

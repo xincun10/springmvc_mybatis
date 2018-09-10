@@ -19,6 +19,13 @@
 	<context:component-scan base-package="com.zcy.ssm.controller">
 	</context:component-scan>
 	
+	<!-- 静态资源解析
+	包括：js css img ...
+	 -->
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	
+	
 	<!-- 注解适配器 -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
